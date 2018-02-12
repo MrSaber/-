@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
+    <title>任务细节</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color:#EC8B89">
+    <h1 style="position: relative;top: 25%;">维修任务</h1>
+</div>
+<div class="weui-cells__title">任务基本信息</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>任务编号</p>
+        </div>
+        <div class="weui-cell__ft" th:data="${flow.flow_id}" id="flowId" th:text="${flow.flow_id}"></div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>发布时间</p>
+        </div>
+        <div class="weui-cell__ft">2018-1-21</div>
+    </div>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd">
+            <p>发布人信息</p>
+        </div>
+        <div class="weui-cell__ft">点击查看</div>
+    </a>
+    <a class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+            <p>任务进度</p>
+        </div>
+        <div class="weui-cell__ft"  th:data="${flow.flow_id}" onclick="to_page_progress(this)">点击查看</div>
+    </a>
+</div>
+
+<div class="weui-cells__title">待维修故障</div>
+<div class="weui-cells">
+    <a th:each="task : ${tasks}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__hd"><img src="dist/image/task.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
+        <div class="weui-cell__bd">
+            <p th:text="${task.fault_info}"></p>
+        </div>
+        <div class="weui-cell__ft" th:data="${task.fault_id}" onclick="to_page_showTask(this)">查看更多</div>
+    </a>
+</div>
+
+<div class="weui-cells__title">选定维修单位</div>
+<a class="weui-cell weui-cell_access" href="javascript:;">
+    <div class="weui-cell__hd"><img src="dist/image/mail.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
+    <div class="weui-cell__bd">
+        <p th:text="${bid.user_office}"></p>
+    </div>
+    <div class="weui-cell__ft" onclick="showBid(this)" th:data="${bid.bid_id}">查看</div>
+</a>
+
+<script>
+    function to_page_showTask(div) {
+        location.href="page_task_details.html?id="+div.getAttribute("data");
+    }
+    function to_page_progress(div) {
+        location.href="page_flow_progress.html?id="+div.getAttribute("data");
+    }
+    function showBid(div) {
+        location.href="page_bid_showStuff.html?id="+div.getAttribute("data");
+    }
+</script>
+</body>
+</html>

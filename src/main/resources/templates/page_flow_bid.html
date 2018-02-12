@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color:#E9AE6A">
+    <h1 style="position: relative;top: 25%;">任务信息</h1>
+</div>
+<div class="weui-cells__title">任务基本信息</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>任务编号</p>
+        </div>
+        <div class="weui-cell__ft" th:data="${flow.flow_id}" id="flowId" th:text="${flow.flow_id}"></div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>发布时间</p>
+        </div>
+        <div class="weui-cell__ft">2018-1-21</div>
+    </div>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd">
+            <p>发布人信息</p>
+        </div>
+        <div class="weui-cell__ft">点击查看</div>
+    </a>
+</div>
+<div class="weui-cells__title">待维修故障</div>
+<div class="weui-cells">
+    <a th:each="task : ${tasks}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__hd"><img src="dist/image/task.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
+        <div class="weui-cell__bd">
+            <p th:text="${task.fault_info}"></p>
+        </div>
+        <div class="weui-cell__ft" th:data="${task.fault_id}" onclick="showTask(this)">查看更多</div>
+    </a>
+</div>
+<script>
+    function showTask(div) {
+        location.href="page_task_details.html?id="+div.getAttribute("data");
+    }
+</script>
+<div class="weui-page-footer">
+    <button style="width: 50%;height: 50px;background-color: #3cc51f;color: white;border-radius: 5px;border: none;margin:0 25%" onclick="bid()">竞标</button>
+</div>
+<script>
+    //参与任务
+    function bid() {
+        location.href="page_bid_list.html?id="+$('#flowId').attr('data');
+    }
+</script>
+</body>
+</html>

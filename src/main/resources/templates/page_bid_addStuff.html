@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+    <script src="dist/js/vue.js"></script>
+
+</head>
+<body>
+<div class="weui-page-header" style="background-color:#FF5722">
+    <h1 style="position: relative;top: 25%;">报价信息</h1>
+</div>
+<div class="weui-cells__title">任务编号</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label" id="flowId" th:data="${flowId}">任务编号:</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label" id="bidId" th:text="${flowId}" th:data="${bidId}">00000000</label>
+    </div>
+</div>
+<div class="weui-cells__title">工时费用</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">工时费:</label></div>
+    <div class="weui-cell__bd">
+        <input class="weui-input" id="timeprice" type="number" pattern="[0-9]*" placeholder="工时费用为整数"/>
+    </div>
+</div>
+<div class="weui-cells__title">所需材料
+<button style="float: right;width: 20px;" class="open-popup" data-target="#about">+</button>
+</div>
+<div class="weui-cells" id="cell-list">
+    <todo-item v-for="item in items" v-bind:todo="item">
+    </todo-item>
+</div>
+<a href="javascript:;" class="weui-btn weui-btn_primary" style="width: 50%;margin-top: 10px" onclick="submitBid()">提交</a>
+<div id="about" class="weui-popup__container popup-bottom">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="toolbar">
+            <div class="toolbar-inner">
+                <a href="javascript:;" class="picker-button close-popup">关闭</a>
+                <h1 class="title">材料信息</h1>
+            </div>
+        </div>
+        <div class="modal-content">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">材料名称</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="stuff_name" type="text"  placeholder="请输入材料名称"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">材料数量</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="stuff_number" type="number" pattern="[0-9]*" placeholder="请输入材料数量"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">材料总价</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="stuff_price" type="number" pattern="[0-9]*" placeholder="请输入材料总价"/>
+                </div>
+            </div>
+            <div class="weui-btn-area">
+                <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" onclick="addStuff()">确定</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /*<![CDATA[*/
+    var myComponent = Vue.extend({
+        props: ["todo"],
+        template: "<a class='weui-cell weui-cell_access' href='javascript:;'><div class='weui-cell__bd'><p>{{todo.stuff_name}}[数量{{todo.stuff_number}}][总价{{todo.stuff_price}}] </p></div><div class='weui-cell__ft'></div></a>"
+    });
+    Vue.component('todo-item', myComponent);
+    var app1 = new Vue({
+        el: "#cell-list",
+        data: {items: []}
+    });
+
+    function Stuff(id,name,number,price) {
+        this.id=id;
+        this.stuff_name=name;
+        this.stuff_number =number;
+        this.stuff_price =price;
+    }
+    function addStuff() {
+        var stuff_name = $('#stuff_name').val();
+        var stuff_number = $('#stuff_number').val();
+        var stuff_price = $('#stuff_price').val();
+        app1.items.push(new Stuff(1,stuff_name,stuff_number,stuff_price));
+        $('#stuff_name').val("");
+        $('#stuff_number').val("");
+        $('#stuff_price').val("");
+    }
+    function submitBid() {
+        $.ajax({
+            url:"/web/bid/addBid.do",
+            data:{
+                bid_id:$('#bidId').attr("data"),
+                bid_flow_id:$('#flowId').attr("data"),
+                bid_timeprice:$('#timeprice').val(),
+                bid_total:100
+            },
+            success:function () {
+                $.ajax({
+                    url:"/web/bid/addStuff.do",
+                    method:'POST',
+                    data:{data:JSON.stringify(app1.items),id:$('#bidId').attr("data")},
+                    success:function (data) {
+                        $.alert(data);
+                    }
+                });
+            }
+        });
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

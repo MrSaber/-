@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color:#FF5722">
+    <h1 style="position: relative;top: 25%;">新增维修单</h1>
+</div>
+<div class="weui-cell weui-cell_vcode">
+    <div class="weui-cell__hd">
+        <label class="weui-label">维修单号：</label>
+    </div>
+    <div class="weui-cell__bd">
+        <div class="weui-cell__ft" th:data="${flow}" id="flowId" th:text="${flow}"></div>
+    </div>
+    <div class="weui-cell__ft">
+        <a href="page_task_addWX.html" class="weui-vcode-btn">添加</a>
+    </div>
+    <div class="weui-cell__ft">
+        <a class="weui-vcode-btn" onclick="add_flow()">发起</a>
+    </div>
+</div>
+
+<div class="weui-cells">
+    <a th:each="task : ${tasks}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__hd"><img src="dist/image/task.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
+        <div class="weui-cell__bd">
+            <p th:text="${task.fault_info}"></p>
+        </div>
+        <div class="weui-cell__ft" th:data="${task.fault_id}" onclick="showTask(this)">查看更多</div>
+    </a>
+</div>
+<script>
+    function showTask(div) {
+        location.href="page_task_details.html?id="+div.getAttribute("data");
+    }
+    function add_flow() {
+        $.ajax({
+            url:"/web/flow/add.do",
+            success:function (data) {
+                if(data==1)
+                {
+                    $.alert("已提交至管理员审核！")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

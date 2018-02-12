@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"> </meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>故障信息</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <script src="dist/js/jquery.min.js"></script>
+    <script src="dist/js/jquery-weui.min.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color: #007aff">
+    <h1 style="position: relative;top: 25%;">故障信息</h1>
+</div>
+<div class="weui-form-preview">
+    <div class="weui-form-preview__hd">
+        <label class="weui-form-preview__label">故障信息</label>
+        <em class="weui-form-preview__value" th:text="${form.fault_info}"></em>
+    </div>
+    <div class="weui-form-preview__bd">
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">故障说明</label>
+            <span class="weui-form-preview__value" th:text="${form.fault_context}">很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字</span>
+        </div>
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">故障图片</label>
+            <span class="weui-form-preview__value" th:each="img : ${images}" >
+                <img  th:src="'/web/tool/getImage.do?p='+${img}" width="100%"/>
+            </span>
+        </div>
+    </div>
+    <div class="weui-form-preview__ft">
+        <a type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="page_flow_addFlow.html">返回</a>
+    </div>
+</div>
+</body>
+</html>

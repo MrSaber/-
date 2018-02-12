@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"> </meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color: #BA874C">
+    <h1 style="position: relative;top: 25%;">待审核任务列表</h1>
+</div>
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" th:each="flow :${flows}">
+        <div class="weui-cell__hd"><img src="dist/image/task.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
+        <div class="weui-cell__bd">
+            <p th:text="${flow.flow_id}"></p>
+        </div>
+        <div onclick="showTask(this)" th:data="${flow.flow_id}" class="weui-cell__ft">查看更多</div>
+    </a>
+</div>
+<script>
+    function showTask(div) {
+        location.href="page_flow_approval.html?id="+div.getAttribute("data");
+    }
+</script>
+</body>
+</html>

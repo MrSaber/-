@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+    <script src="dist/js/vue.js"></script>
+
+</head>
+<body>
+<div class="weui-page-header" style="background-color:#FF5722">
+    <h1 style="position: relative;top: 25%;">报价信息</h1>
+</div>
+<div class="weui-cells__title">工时费用</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">工时费:</label></div>
+    <div class="weui-cell__bd">
+        <input class="weui-input" th:value="${bid.bid_timeprice}" disabled="disabled" id="timeprice" type="number" pattern="[0-9]*" placeholder="工时费用为整数"/>
+    </div>
+</div>
+<div class="weui-cells__title">所需材料</div>
+<div class="weui-cells" id="cell-list">
+    <a class='weui-cell weui-cell_access' href='javascript:;' th:each="stuff : ${stuffs}">
+        <div class='weui-cell__bd'><p th:text="${stuff.stuff_name}+'[数量'+${stuff.stuff_number}+'][总价'+${stuff.stuff_price}+']'">{{todo.stuff_name}}[数量{{todo.stuff_number}}][总价{{todo.stuff_price}}] </p></div>
+        <div class='weui-cell__ft'></div>
+    </a>
+</div>
+<script>
+    /*<![CDATA[*/
+    /*]]>*/
+</script>
+</body>
+</html>

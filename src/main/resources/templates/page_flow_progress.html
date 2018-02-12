@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"> </meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/style.css"/>
+
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color: #007aff">
+    <h1 style="position: relative;top: 25%;">审批进度</h1>
+</div>
+<section id="cd-timeline" class="cd-container">
+    <div class="cd-timeline-block" th:each="p :${progress}">
+        <div class="cd-timeline-img">
+            <img src="dist/image/ok.png" alt="Picture"/>
+        </div>
+
+        <div class="cd-timeline-content">
+            <h5 th:text="${p}">HTML5+CSS3实现的响应式垂直时间轴</h5>
+        </div>
+    </div>
+
+</section>
+
+
+</body>
+</html>

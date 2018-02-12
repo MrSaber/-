@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.min.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-index-header" style="background-color: #FEE388">
+    <div class="weui-index-header-headimg">
+        <img src="dist/image/g.jpeg" width="90px" height="90px" style="border-radius: 45px"/>
+    </div>
+    <div style="position:relative;top: 65px;">
+        <p>分管领导</p>
+    </div>
+</div>
+<div class="weui-grids">
+    <a href="" class="weui-grid">
+        <div class="weui-grid__icon">
+            <img src="dist/image/user.png" alt=""/>
+        </div>
+        <p class="weui-grid__label">用户信息</p>
+    </a>
+    <a href="page_flowlist_mail.html" class="weui-grid">
+        <div class="weui-grid__icon">
+            <img src="dist/image/mail.png" alt=""/>
+        </div>
+        <p class="weui-grid__label">维修审批</p>
+    </a>
+    <a href="page_history.html" class="weui-grid">
+        <div class="weui-grid__icon">
+            <img src="dist/image/history.png" alt=""/>
+        </div>
+        <p class="weui-grid__label">维修历史</p>
+    </a>
+    <a href="page_history.html" class="weui-grid">
+        <div class="weui-grid__icon">
+            <img src="dist/image/check.png" alt=""/>
+        </div>
+        <p class="weui-grid__label">提交验收</p>
+    </a>
+    <a href="javascript:;" class="weui-grid">
+        <div class="weui-grid__icon">
+            <img src="dist/image/quit.png" alt=""/>
+        </div>
+        <p class="weui-grid__label">退出</p>
+    </a>
+    <a href="javascript:about();" class="weui-grid">
+        <div class="weui-grid__icon">
+            <img src="dist/image/about.png" alt=""/>
+        </div>
+        <p class="weui-grid__label">关于</p>
+    </a>
+    <script>
+        function about() {
+            $.alert("技术支持","mrsaber@foxmail.com");
+        }
+    </script>
+</div>
+</body>
+</html>
