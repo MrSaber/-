@@ -39,6 +39,13 @@
         <div class="weui-cell__ft" th:data="${task.fault_id}" onclick="showTask(this)">查看更多</div>
     </a>
 </div>
+
+
+
+
+
+
+
 <script>
     function showTask(div) {
         location.href="page_task_details.html?id="+div.getAttribute("data");
@@ -49,7 +56,9 @@
             success:function (data) {
                 if(data==1)
                 {
-                    $.alert("已提交至管理员审核！")
+                    $.toast("已提交至管理员审核！", function() {
+                        location.href = "page_index.html";
+                    });
                 }
             }
         })

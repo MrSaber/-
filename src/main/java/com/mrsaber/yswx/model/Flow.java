@@ -7,6 +7,25 @@ public class Flow {
     private Date flow_date;
     private Integer flow_status;
     private String flow_whyfail;
+    private String flow_remark;
+    private Integer flow_score;
+
+
+    public String getFlow_remark() {
+        return flow_remark;
+    }
+
+    public void setFlow_remark(String flow_remark) {
+        this.flow_remark = flow_remark;
+    }
+
+    public Integer getFlow_score() {
+        return flow_score;
+    }
+
+    public void setFlow_score(Integer flow_score) {
+        this.flow_score = flow_score;
+    }
 
     public String getFlow_id() {
         return flow_id;

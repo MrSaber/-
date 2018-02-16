@@ -41,12 +41,34 @@ public class FlowController {
         try {
             flowMapper.add(flow);
             session.setAttribute("flowId",null);//生成Flow以后清除Session值
-            response.sendRedirect("/web/page_flow_addFlow.html");
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
         return 1;
+    }
+
+    /**
+     * 任务评分
+     * @param id 任务ID
+     * @param remark    评语
+     * @param score     评分
+     * @return  完成情况
+     */
+    @RequestMapping(value = "/raty.do")
+    public String raty(String id,String remark,Integer score)
+    {
+        try {
+            Flow flow = new Flow();
+            flow.setFlow_id(id);
+            flow.setFlow_remark(remark);
+            flow.setFlow_score(score);
+            flowMapper.raty(flow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return "评价成功！";
     }
     /**
      * 审批通过

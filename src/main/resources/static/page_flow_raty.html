@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
+    <title>任务细节</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+
+
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+    <script src="dist/ratylib/jquery.raty.js"></script>
+    <link rel="stylesheet" href="dist/ratylib/jquery.raty.css"/>
+</head>
+<body>
+<a href="javascript:;" class="open-popup" data-target="#raty">About</a>
+<div id="raty" class="weui-popup__container popup-bottom">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="toolbar">
+            <div class="toolbar-inner">
+                <a href="javascript:;" class="picker-button close-popup">关闭</a>
+                <h1 class="title">评分验收</h1>
+            </div>
+        </div>
+        <div class="modal-content">
+            <div class="weui-cells__title">评分</div>
+            <div id="star" data-score="1" style="    background-color: white;text-align: center;"></div>
+            <div class="weui-cells__title">评语</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <textarea class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" onclick="submitRaty()">确定</a>
+        </div>
+
+        <script>
+            $('#star').raty({
+                path: 'dist/ratylib/images',
+                score: function() {
+                    return $(this).attr('data-score');
+                }
+            });
+        </script>
+        <script>
+            function submitRaty() {
+                console.log( $('input[name="score"]').first().val());
+            }
+        </script>
+    </div>
+</div>
+
+
+</body>
+</html>
