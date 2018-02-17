@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8"/><!DOCTYPE html>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"/>
     <title>任务细节</title>
     <link rel="stylesheet" href="dist/lib/weui.min.css"/>
     <link rel="stylesheet" href="dist/css/mrsaber.css"/>
     <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/buttons.css"/>
 
 
     <script src="dist/lib/jquery-2.1.4.js"></script>
@@ -16,6 +18,11 @@
     <link rel="stylesheet" href="dist/ratylib/jquery.raty.css"/>
 </head>
 <body>
+
+<a href="http://www.bootcss.com/" class="button button-3d button-primary button-rounded">Check out the new site!</a>
+<a href="http://www.bootcss.com/" class="button button-3d button-primary button-rounded">Check out the new site!</a>
+
+
 <a href="javascript:;" class="open-popup" data-target="#raty">About</a>
 <div id="raty" class="weui-popup__container popup-bottom">
     <div class="weui-popup__overlay"></div>
@@ -33,13 +40,13 @@
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+                        <textarea class="weui-textarea" placeholder="" rows="2" disabled="disabled"></textarea>
                     </div>
                 </div>
             </div>
             <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" onclick="submitRaty()">确定</a>
+            <button>打分验收</button>
         </div>
-
         <script>
             $('#star').raty({
                 path: 'dist/ratylib/images',
@@ -55,7 +62,5 @@
         </script>
     </div>
 </div>
-
-
 </body>
 </html>

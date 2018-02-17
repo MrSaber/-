@@ -20,7 +20,7 @@
 <div class="weui-page-header" style="background-color:#EC8B89">
     <h1 style="position: relative;top: 25%;">任务详情</h1>
 </div>
-<div class="weui-cells__title">基本信息</div>
+<div class="weui-cells__title">任务基本信息</div>
 <div class="weui-cells">
     <div class="weui-cell">
         <div class="weui-cell__bd">
@@ -48,7 +48,7 @@
     </a>
 </div>
 
-<div class="weui-cells__title">维修故障</div>
+<div class="weui-cells__title">待维修故障</div>
 <div class="weui-cells">
     <a th:each="task : ${tasks}" class="weui-cell weui-cell_access">
         <div class="weui-cell__hd"><img src="dist/image/task.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
@@ -59,7 +59,7 @@
     </a>
 </div>
 
-<div class="weui-cells__title">维修单位</div>
+<div class="weui-cells__title">选定维修单位</div>
 <a class="weui-cell weui-cell_access" href="javascript:;">
     <div class="weui-cell__hd"><img src="dist/image/mail.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
     <div class="weui-cell__bd">
@@ -73,7 +73,7 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">任务评分</label></div>
         <div class="weui-cell__bd">
-            <div id="star"  th:attr="data-score=${flow.flow_score}" style="background-color: white;text-align: center;"></div>
+            <div id="star" data-score="1" style="background-color: white;text-align: center;"></div>
             <script>
                 $('#star').raty({
                     path: 'dist/ratylib/images',
@@ -88,14 +88,14 @@
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <textarea class="weui-textarea" th:text="${flow.flow_remark}" placeholder="你好" rows="3"></textarea>
+                <textarea id="remark" class="weui-textarea" placeholder="你好" rows="3"></textarea>
             </div>
         </div>
     </div>
+    <div class="weui-cell">
+        <button   class="weui-btn weui-btn_primary" onclick="ajax_raty()">打分验收</button>
+    </div>
 </div>
-
-
-
 <script>
     function to_page_showTask(div) {
         location.href="page_task_details.html?id="+div.getAttribute("data");
@@ -105,6 +105,23 @@
     }
     function showBid(div) {
         location.href="page_bid_showStuff.html?id="+div.getAttribute("data");
+    }
+    function ajax_raty() {
+        var id = $('#flowId').attr("data");
+        var remark = $('#remark').val();
+        var score = $('input[name="score"]').first().val();
+        $.ajax({
+            url:"/web/flow/raty.do",
+            method:'post',
+            data:{
+                id:id,remark:remark,score:score
+            },
+            success:function (data) {
+                $.toast(data,function () {
+                    location.href="/web/page_index_sg.html"
+                });
+            }
+        })
     }
 </script>
 </body>

@@ -28,6 +28,6 @@ public interface FlowMapper {
     @Update("UPDATE wx_flow SET flow_status = #{status} WHERE flow_id = #{id}")
     Integer selectFlowTo(@Param("id") String id,@Param("status") Integer status);
 
-    @Update("UPDATE `yswxpg`.`wx_flow` SET `flow_remark`=#{flow_remark}, `flow_score`=#{flow_score} WHERE `flow_id`=#{flow_id};")
+    @Update("UPDATE `yswxpg`.`wx_flow` SET `flow_remark`=#{flow_remark},`flow_status`=14, `flow_score`=#{flow_score} WHERE `flow_id`=#{flow_id};")
     void raty(Flow flow);
 }

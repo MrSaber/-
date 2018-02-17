@@ -96,6 +96,15 @@ public class PageController {
         model.addAttribute("flows",flowMapper.getListByStatus(1));
         return "page_flowlist_check_sg";
     }
+
+    //任务验收
+    @RequestMapping("page_flowlist_raty_sg.html")
+    public String page_list_raty_sg(Model model)
+    {
+        model.addAttribute("flows",flowMapper.getListByStatus(13));
+        return "page_flowlist_raty_sg";
+    }
+
     //分管领导
     @RequestMapping("page_flowlist_check_fgld.html")
     public String page_flowlist_check_fgld(Model model)
@@ -136,10 +145,33 @@ public class PageController {
             bid.setUser_office("未分配单位");
             bid.setBid_flow_id("123456");
         }
+        Flow flow = flowMapper.get(id);
+        if(flow.getFlow_status()!=14)
+        {
+            flow.setFlow_score(0);
+            flow.setFlow_remark("任务进行中，尚未验收！");
+        }
+        model.addAttribute("bid",bid);
+        model.addAttribute("tasks",taskMapper.get(id));
+        model.addAttribute("flow",flow);
+        return "page_flow_details";
+    }
+
+
+    @RequestMapping("page_flow_raty.html")
+    public String page_flow_raty(Model model,String id)
+    {
+        Bid bid = bidMapper.getSelectBidByFlowId(id);
+        if(bid==null)
+        {
+            bid = new Bid();
+            bid.setUser_office("未分配单位");
+            bid.setBid_flow_id("123456");
+        }
         model.addAttribute("bid",bid);
         model.addAttribute("tasks",taskMapper.get(id));
         model.addAttribute("flow",flowMapper.get(id));
-        return "page_flow_details";
+        return "page_flow_raty";
     }
 
     //审批进度页面
