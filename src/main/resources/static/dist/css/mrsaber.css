@@ -1,0 +1,29 @@
+
+.weui-index-header{
+    height: 35%;
+    background: #D1D1D1;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.weui-index-header-headimg
+{
+    position: relative;
+    top:25%;
+}
+
+.weui-page-header{
+    color: white;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.weui-page-footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+}
