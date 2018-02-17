@@ -1,11 +1,11 @@
 package com.mrsaber.yswx.controller;
 
 import com.mrsaber.yswx.model.Image;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Controller
 @CrossOrigin
@@ -26,7 +28,7 @@ public class ToolController {
      * @return
      */
     @RequestMapping("/upload.do")
-    public Boolean upload(Image image, HttpSession session)
+    public @ResponseBody Boolean upload(Image image, HttpSession session)
     {
         String tmp_prefix="WX20180127000001";
         System.out.println(image.getName());
@@ -39,7 +41,7 @@ public class ToolController {
     }
 
     @RequestMapping(value = "/getImage.do")
-    public String getImage(HttpServletResponse response,String p) throws Exception
+    public @ResponseBody String getImage(HttpServletResponse response,String p) throws Exception
     {
         System.out.println("获得图片");
         response.setHeader("Pragma", "no-cache");
@@ -52,5 +54,25 @@ public class ToolController {
         ImageIO.write(bi, "PNG", response.getOutputStream());
         response.flushBuffer();
         return null;
+    }
+
+    /**
+     * 微信接口配置
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @param echostr
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/weixin.do")
+    public @ResponseBody String weixin(String signature, String timestamp, String nonce, String echostr) throws IOException {
+        ArrayList<String> list=new ArrayList<String>();
+        list.add(nonce);
+        list.add(timestamp);
+        list.add("mrsaber");
+        Collections.sort(list);
+        String result = DigestUtils.shaHex(list.get(0)+list.get(1)+list.get(2));
+        return echostr;
     }
 }

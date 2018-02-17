@@ -9,12 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 @Controller
 public class PageController {
@@ -381,5 +380,4 @@ public class PageController {
         model.addAttribute("bid",bidMapper.getBidByBidId(id));
         return "page_bid_showStuff";
     }
-
 }
