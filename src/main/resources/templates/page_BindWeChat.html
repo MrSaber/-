@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>WeUI 应用案例</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color:#1aad19">
+    <h1 style="position: relative;top: 25%;">微信绑定</h1>
+</div>
+<div class="weui-cells__title">身份绑定</div>
+<div class="weui-panel__bd">
+    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" th:src="${we_info['headimgurl']}" alt=""/>
+        </div>
+        <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title" th:text="${we_info['nickname']}">XXXX</h4>
+            <p class="weui-media-box__desc" th:text="${we_info['city']}">XXXXXXXXXXXX</p>
+        </div>
+    </a>
+</div>
+
+<div class="weui-cell weui-cell_select weui-cell_select-after">
+    <div class="weui-cell__hd">
+        <label for="" class="weui-label">单位</label>
+    </div>
+    <div class="weui-cell__bd">
+        <select class="weui-select" name="select2">
+            <option value="1">南苑食堂</option>
+            <option value="2">会泽食堂</option>
+            <option value="3">绿苑食堂</option>
+            <option value="4">维修单位</option>
+        </select>
+    </div>
+</div>
+
+<div class="weui-cell weui-cell_select weui-cell_select-after">
+    <div class="weui-cell__hd">
+        <label for="" class="weui-label">职位</label>
+    </div>
+    <div class="weui-cell__bd">
+        <select class="weui-select" name="select2">
+            <option value="1">食堂工作人员</option>
+            <option value="2">食堂管理员</option>
+            <option value="3">分管领导</option>
+            <option value="4">主任</option>
+            <option value="5">处长</option>
+            <option value="5">维修单位联系人</option>
+        </select>
+    </div>
+</div>
+<div class="weui-cells__title">账户设置</div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">真实姓名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text"  placeholder=""/>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">登录账户</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text"  placeholder=""/>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">登录密码</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="password" placeholder=""/>
+        </div>
+    </div>
+</div>
+<label for="weuiAgree" class="weui-agree">
+    <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" checked="checked"/>
+    <span class="weui-agree__text">
+                阅读并同意<a href="javascript:void(0);">《相关条款》</a>
+            </span>
+</label>
+<div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">提交绑定信息</a>
+</div>
+</body>
+</html>

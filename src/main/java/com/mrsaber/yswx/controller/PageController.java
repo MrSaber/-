@@ -5,7 +5,11 @@ import com.mrsaber.yswx.model.Bid;
 import com.mrsaber.yswx.model.Flow;
 import com.mrsaber.yswx.model.ToolHelper;
 import com.mrsaber.yswx.model.User;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 @Controller
@@ -379,5 +384,24 @@ public class PageController {
         model.addAttribute("stuffs",bidMapper.getStuffsByBidId(id));
         model.addAttribute("bid",bidMapper.getBidByBidId(id));
         return "page_bid_showStuff";
+    }
+
+    private String appId = "wx0535470be54c79fd";
+    private String appSecert = "28052f7415f95cf94f1b13062cef81ac";
+
+    @RequestMapping("code.do")
+    public String get_User_Info(String code,String state,Model model) throws IOException {
+        //System.out.println(code);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appId+"&secret="+appSecert+"&code="+code+"&grant_type=authorization_code";
+        Request request = new Request.Builder().url(url).build();
+        Response response = okHttpClient.newCall(request).execute();
+        JacksonJsonParser jacksonJsonParser = new JacksonJsonParser();
+        Map<String,Object> map = jacksonJsonParser.parseMap(response.body().string());
+        request = new Request.Builder().url("https://api.weixin.qq.com/cgi-bin/user/info?access_token="+ToolHelper.get_ACCESS_TOKEN()+"&openid="+map.get("openid")+"&lang=zh_CN").build();
+        Response user_info = okHttpClient.newCall(request).execute();
+        Map<String,Object> info_map = jacksonJsonParser.parseMap(user_info.body().string());
+        model.addAttribute("we_info",info_map);
+        return "page_BindWeChat";
     }
 }

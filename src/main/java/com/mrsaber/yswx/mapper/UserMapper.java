@@ -11,6 +11,11 @@ public interface UserMapper {
     @Select("SELECT * FROM wx_user WHERE user_name=#{username} and user_password=#{password};")
     User getUser(@Param("username")String username,@Param("password")String password);
 
+
+    void addNoCheckUser(User user);
+
+
+
     @Select("SELECT * FROM shzu.shzu_user,shzu_office WHERE shzu_user.user_office=of_id AND user_role =#{type};")
     List<User> getALL(Integer type);
 

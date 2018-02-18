@@ -1,8 +1,14 @@
 package com.mrsaber.yswx.controller;
 
 import com.mrsaber.yswx.model.Image;
+import com.mrsaber.yswx.model.ToolHelper;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,11 +22,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 @Controller
 @CrossOrigin
 @RequestMapping("tool")
 public class ToolController {
+
     /**
      * 【处理微信图片上传】
      * @param image
@@ -75,4 +83,5 @@ public class ToolController {
         String result = DigestUtils.shaHex(list.get(0)+list.get(1)+list.get(2));
         return echostr;
     }
+
 }
