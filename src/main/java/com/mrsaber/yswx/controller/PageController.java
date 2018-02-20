@@ -404,4 +404,67 @@ public class PageController {
         model.addAttribute("we_info",info_map);
         return "page_BindWeChat";
     }
+
+    @RequestMapping("we_login.html")
+    public String page_we_login(String code,String state) throws IOException {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appId+"&secret="+appSecert+"&code="+code+"&grant_type=authorization_code";
+        Request request = new Request.Builder().url(url).build();
+        Response response = okHttpClient.newCall(request).execute();
+        JacksonJsonParser jacksonJsonParser = new JacksonJsonParser();
+        Map<String,Object> map = jacksonJsonParser.parseMap(response.body().string());
+        User user = userMapper.getUserByWe((String) map.get("openid"));
+        session.setAttribute("cUser",user);
+        switch (user.getUser_type())
+        {
+            case 1:return "page_index";
+            case 3:return "page_index_sg";
+            case 5:return "page_index_fgld";
+            case 7:return "page_index_zr";
+            case 9:return "page_index_cz";
+            case 10:return "page_index_wxdw";
+        }
+        return null;
+    }
+
+    @RequestMapping("page_userInfo.html")
+    public String page_user_info()
+    {
+       User user= (User) session.getAttribute("cUser");
+       user =userMapper.getUser(user.getUser_name(),user.getUser_password());
+       session.setAttribute("cUser",user);
+        return  "page_userInfo";
+    }
+
+    @RequestMapping("indexs.html")
+    public String index_html(Model model)
+    {
+        User user = (User) session.getAttribute("cUser");
+        switch (user.getUser_type())
+        {
+            case 1:return "page_index";
+            case 10:return "page_index_wxdw";
+            case 3:return "page_index_sg";
+            case 5:return "page_index_fgld";
+            case 7:return "page_index_zr";
+            case 9:return "page_index_cz";
+        }
+        model.addAttribute("error_text","用户信息验证失败");
+        return "page_error";
+    }
+
+    @RequestMapping("logout.html")
+    public String logout_html(Model model)
+    {
+        session.setAttribute("cUser",null);
+        model.addAttribute("error_text","已经退出，请重新登录");
+        return "page_error";
+    }
+
+    @RequestMapping("page_error.html")
+    public String page_error(Model model)
+    {
+        return "page_error";
+    }
+
 }

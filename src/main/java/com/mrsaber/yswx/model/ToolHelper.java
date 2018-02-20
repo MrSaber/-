@@ -1,8 +1,6 @@
 package com.mrsaber.yswx.model;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.springframework.boot.json.JacksonJsonParser;
 
 import java.io.IOException;
@@ -50,4 +48,45 @@ public class ToolHelper {
         }
         return access_token;
     }
+
+
+    public static void main(String[] args) throws IOException {
+        MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+        OkHttpClient client = new OkHttpClient();
+        String json = "{\n" +
+                "\n" +
+                "    \"touser\":\"ox7vc1OE5_eYQQeXDYapb_MQ2x9c\",\n" +
+                "    \"template_id\":\"pe7zpdai5zOKYqG4y0wP8MehG6FU70t_FYq9MigvjKc\",\n" +
+                "    \"url\":\"http://weixin.qq.com/download\",\n" +
+                "    \"topcolor\":\"#FF0000\",\n" +
+                "    \"data\":{\n" +
+                "            \"first\": {\n" +
+                "                \"value\":\"黄先生\",\n" +
+                "                \"color\":\"#173177\"\n" +
+                "            },\n" +
+                "            \"keyword1\":{\n" +
+                "                \"value\":\"06月07日 19时24分\",\n" +
+                "                \"color\":\"#173177\"\n" +
+                "            },\n" +
+                "            \"keyword2\": {\n" +
+                "\n" +
+                "                \"value\":\"0426\",\n" +
+                "\n" +
+                "                \"color\":\"#173177\"\n" +
+                "            }\n" +
+                "    }\n" +
+                "}";
+        System.out.println(json);
+
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+ToolHelper.get_ACCESS_TOKEN())
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        System.out.println(response.body().string());
+    }
+
+
 }

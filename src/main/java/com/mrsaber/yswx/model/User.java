@@ -10,6 +10,35 @@ public class User {
     private Integer user_type;
     private String user_office;
     private String user_realname;
+    //
+    private String user_openId;
+    private Integer user_status;
+    private String user_tel;
+
+
+    public String getUser_tel() {
+        return user_tel;
+    }
+
+    public void setUser_tel(String user_tel) {
+        this.user_tel = user_tel;
+    }
+
+    public String getUser_openId() {
+        return user_openId;
+    }
+
+    public void setUser_openId(String user_openId) {
+        this.user_openId = user_openId;
+    }
+
+    public Integer getUser_status() {
+        return user_status;
+    }
+
+    public void setUser_status(Integer user_status) {
+        this.user_status = user_status;
+    }
 
     public Integer getUser_id() {
         return user_id;

@@ -23,7 +23,7 @@
             <img class="weui-media-box__thumb" th:src="${we_info['headimgurl']}" alt=""/>
         </div>
         <div class="weui-media-box__bd">
-            <h4 class="weui-media-box__title" th:text="${we_info['nickname']}">XXXX</h4>
+            <h4 class="weui-media-box__title" th:text="${we_info['nickname']}" th:data="${we_info['openid']}" id="user">XXXX</h4>
             <p class="weui-media-box__desc" th:text="${we_info['city']}">XXXXXXXXXXXX</p>
         </div>
     </a>
@@ -34,7 +34,7 @@
         <label for="" class="weui-label">单位</label>
     </div>
     <div class="weui-cell__bd">
-        <select class="weui-select" name="select2">
+        <select class="weui-select" name="select2" id="userOffice">
             <option value="1">南苑食堂</option>
             <option value="2">会泽食堂</option>
             <option value="3">绿苑食堂</option>
@@ -48,7 +48,7 @@
         <label for="" class="weui-label">职位</label>
     </div>
     <div class="weui-cell__bd">
-        <select class="weui-select" name="select2">
+        <select class="weui-select" name="select2" id="userType">
             <option value="1">食堂工作人员</option>
             <option value="2">食堂管理员</option>
             <option value="3">分管领导</option>
@@ -63,19 +63,19 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">真实姓名</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text"  placeholder=""/>
+            <input  id="realName" class="weui-input" type="text"  placeholder=""/>
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">登录账户</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text"  placeholder=""/>
+            <input id="userName" class="weui-input" type="text"  placeholder=""/>
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">登录密码</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="password" placeholder=""/>
+            <input id="password" class="weui-input" type="password" placeholder=""/>
         </div>
     </div>
 </div>
@@ -86,7 +86,38 @@
             </span>
 </label>
 <div class="weui-btn-area">
-    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">提交绑定信息</a>
+    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" onclick="sumbit_apply()">提交绑定信息</a>
 </div>
+<script>
+    function sumbit_apply()
+    {
+        var user_openId = $('#user').attr('data');
+        var user_realname = $('#realName').val();
+        var user_name = $('#userName').val();
+        var user_password = $('#password').val();
+        var user_office = $('#userOffice').val();
+        var user_type = $('#userType').val();
+        $.ajax({
+            url:"/web/we/addNoCheckUser.do",
+            data:{
+                user_openId:user_openId,
+                user_realname:user_realname,
+                user_name:user_name,
+                user_password:user_password,
+                user_office:user_office,
+                user_type:user_type
+            },
+            success:function(data)
+            {
+                $.toast(data.msg,function(){
+                    if(data.code = 1)
+                    {
+                        location.href = "/web/login.html";
+                    }
+                });
+            }
+        })
+    }
+</script>
 </body>
 </html>

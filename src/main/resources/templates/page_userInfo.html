@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>用户信息</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color:#1aad19">
+    <h1 style="position: relative;top: 25%;">用户信息</h1>
+</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label" id="userId" th:text="${session.cUser.user_realname}" th:data="${session.cUser.user_id}">姓名</label>
+    </div>
+</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">单位</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label" th:text="${session.cUser.user_office}">单位</label>
+    </div>
+</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">电话</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label" th:text="${session.cUser.user_tel}">电话</label>
+    </div>
+</div>
+
+<div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" style="background-color: red" onclick="updateTel()">修改电话</a>
+</div>
+
+<script>
+    function updateTel()
+    {
+        $.prompt("请输入您的新的联系方式", function(text) {
+            $.ajax({
+                url:"/web/we/updateTel.do",
+                data:{
+                    id:$('#userId').attr("data"),
+                    tel:text
+                },success:function(data)
+                {
+                    $.toast(data.msg,function(){
+                        if(data.code==1)
+                            $.alert("返回首页");
+                    });
+                }
+            })
+        }, function() {
+            //点击取消后的回调函数
+        });
+    }
+
+</script>
+
+<img src="dist/image/home.png" width="40px" style="border: 1px blue dashed;border-radius: 20px;position: fixed;right: 25px;bottom: 25px" onclick="toIndex()"/>
+<script>
+    function toIndex()
+    {
+        $.toast("前往首页...",function(){ location.href = "/web/indexs.html";})
+    }
+</script>
+</body>
+</html>
