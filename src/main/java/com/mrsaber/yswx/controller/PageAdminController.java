@@ -1,0 +1,27 @@
+package com.mrsaber.yswx.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class PageAdminController {
+
+    @RequestMapping("page_admin_main.html")
+    public String page_admin_main()
+    {
+        return "page_admin_main";
+    }
+
+    @RequestMapping("page_admin_part_builder.html")
+    public String page_admin_part_builder()
+    {
+        return "page_admin_part_builder";
+    }
+    @RequestMapping("page_admin_part_builder_flows.html")
+    public String page_admin_part_builder_flow()
+    {
+        return "page_admin_part_builder_flows";
+    }
+
+}

@@ -1,10 +1,15 @@
 package com.mrsaber.yswx.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Flow {
     private String flow_id;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
     private Date flow_date;
+
     private Integer flow_status;
     private String flow_whyfail;
     private String flow_remark;

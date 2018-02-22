@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>系统管理员界面</title>
+    <link rel="stylesheet" type="text/css" href="dist/easyui/themes/bootstrap/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/easyui/themes/icon.css"/>
+    <script type="text/javascript" src="dist/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/easyui/jquery.easyui.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            padding-left: 0px;
+        }
+        li{
+            margin: 5px 0;
+            border: 2px solid #D4D4D4;
+            padding: 5px;
+            text-align: center;
+            list-style: none;
+            background-color: #F2F2F2;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="easyui-layout" style="width:100%;height:800px;">
+    <div data-options="region:'north'" style="height:80px">
+        <h1>饮食维修评估平台</h1>
+    </div>
+    <div data-options="region:'west',split:true" title="功能菜单" style="width:200px;">
+        <div class="easyui-accordion" data-options="fit:true,border:false">
+            <div title="施工单位管理" style="padding:10px;">
+                <ul>
+                    <li id="page_admin_part_builder.html" onclick="toPage(this)"><a>基本信息管理</a></li>
+                    <li id="page_admin_part_builder_flows.html" onclick="toPage(this)"><a>维修活动管理</a></li>
+                </ul>
+            </div>
+            <div title="基础数据管理"  style="padding:10px;">
+                <ul>
+                    <li><a>用户管理</a></li>
+                    <li><a>食堂管理员信息管理</a></li>
+                    <li><a>领导信息管理</a></li>
+                    <li><a>食堂信息管理</a></li>
+                </ul>
+            </div>
+            <div title="维修任务管理" style="padding:10px">
+                <ul>
+                    <li><a>任务进程</a></li>
+                    <li><a>任务审批</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'center',title:'主界面',iconCls:'icon-ok'">
+        <iframe id="frame" src="page_admin_part_builder.html" style="border: none" height="100%" width="100%"></iframe>
+    </div>
+
+
+
+    <script>
+        /*<![CDATA[*/
+        function toPage(btn)
+        {
+            $('#frame').attr("src",btn.id);
+        }
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>

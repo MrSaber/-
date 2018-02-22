@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 维修任务操作
@@ -102,5 +103,14 @@ public class FlowController {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 获得维修单位的所有维修任务
+     */
+    @RequestMapping(value = "/getAllByBuilderId.do")
+    public List<Flow> getAllByBuilderId(Integer ofId)
+    {
+       return flowMapper.getAllByBuilderId(ofId);
     }
 }
