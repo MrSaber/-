@@ -16,6 +16,10 @@ public interface FlowMapper {
     @Select("SELECT * FROM wx_flow ")
     List<Flow> getAll();
 
+
+    @Select("SELECT * FROM wx_flow WHERE flow_builderId =#{type}")
+    List<Flow> getAllByBuilderId(Integer type);
+
     @Select("SELECT * FROM wx_flow WHERE flow_status =#{type}")
     List<Flow> getListByStatus(Integer type);
 

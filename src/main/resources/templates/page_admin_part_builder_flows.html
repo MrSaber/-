@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>系统管理员界面</title>
+    <link rel="stylesheet" type="text/css" href="dist/easyui/themes/bootstrap/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/easyui/themes/icon.css"/>
+    <script type="text/javascript" src="dist/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="dist/easyui/datagrid-detailview.js"></script>
+</head>
+<body>
+    <table id="dg" style="width:100%;height:350px"
+           url="builder/getAllOf.do"
+           title="维修单位基本信息"
+           singleSelect="true" fitColumns="true">
+        <thead>
+        <tr>
+            <th data-options="field:'of_id',width:80,hidden:true">单位编号</th>
+            <th data-options="field:'of_name',width:80">单位名称</th>
+            <th data-options="field:'of_tel',width:100">联系电话</th>
+            <th data-options="field:'of_other',width:100">联系电话</th>
+        </tr>
+        </thead>
+    </table>
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        $(function(){
+            $('#dg').datagrid({
+                view: detailview,
+                detailFormatter:function(index,row){
+                    return '<div style="padding:2px;position:relative;"><table class="ddv"></table></div>';
+                },
+                onExpandRow: function(index,row){
+                    var ddv = $(this).datagrid('getRowDetail',index).find('table.ddv');
+                    ddv.datagrid({
+                        url:'flow/getAllByBuilderId.do?ofId='+row.of_id,
+                        fitColumns:true,
+                        singleSelect:true,
+                        rownumbers:true,
+                        loadMsg:'',
+                        height:'auto',
+                        columns:[[
+                            {field:'flow_id',title:'单号',width:100},
+                            {field:'flow_date',title:'发布时间',width:100},
+                            {field:"opea_show",title:'操作',formatter:function(value, row, index){
+                                    var Action = "<a data='"+row.flow_id+"' onclick='show(this)'>查看详情</a>";
+                                    return Action;
+                                }}
+                        ]],
+                        onResize:function(){
+                            $('#dg').datagrid('fixDetailRowHeight',index);
+                        },
+                        onLoadSuccess:function(){
+                            setTimeout(function(){
+                                $('#dg').datagrid('fixDetailRowHeight',index);
+                            },0);
+                        }
+                    });
+                    $('#dg').datagrid('fixDetailRowHeight',index);
+                }
+            });
+        });
+        function show(btn)
+        {
+            location.href="page_flow_details.html?id="+btn.getAttribute("data");
+        }
+
+        function DateTimeFormatter(value) {
+            if (value == undefined) {
+                return "";
+            }
+            /*json格式时间转js时间格式*/
+            var dateValue = obj["Date"];
+            if (dateValue.getFullYear() < 1900) {
+                return "";
+            }
+
+            return dateValue.format("yyyy-MM-dd hh:mm:ss");
+        }
+
+
+        /*]]>*/
+    </script>
+</body>
+</html>
