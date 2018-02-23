@@ -5,6 +5,24 @@ public class Builder {
     private String of_name;
     private Integer of_type;
     private String of_other;
+    private String of_address;
+    private String of_tel;
+
+    public String getOf_tel() {
+        return of_tel;
+    }
+
+    public void setOf_tel(String of_tel) {
+        this.of_tel = of_tel;
+    }
+
+    public String getOf_address() {
+        return of_address;
+    }
+
+    public void setOf_address(String of_address) {
+        this.of_address = of_address;
+    }
 
     public Integer getOf_id() {
         return of_id;

@@ -23,5 +23,19 @@ public class PageAdminController {
     {
         return "page_admin_part_builder_flows";
     }
-
+    @RequestMapping("page_admin_part_cafeteria.html")
+    public String page_admin_part_cafeteria()
+    {
+        return "page_admin_part_cafeteria";
+    }
+    @RequestMapping("page_admin_part_cafeteria_admin.html")
+    public String page_admin_part_cafeteria_admin()
+    {
+        return "page_admin_part_cafeteria_admin";
+    }
+    @RequestMapping("page_admin_part_cafeteria_user.html")
+    public String page_admin_part_cafeteria_user()
+    {
+        return "page_admin_part_cafeteria_user";
+    }
 }

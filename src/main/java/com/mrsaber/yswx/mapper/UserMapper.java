@@ -38,8 +38,12 @@ public interface UserMapper {
     void updateUserTel(@Param("tel")String tel,@Param("id")Integer id);
 
     //根据类型获得各种用户信息
-    @Select("SELECT * FROM wx_user WHERE user_office = #{type}")
-    List<User> getAllByOf(Integer type);
+    @Select("SELECT * FROM wx_user WHERE user_office = #{office}")
+    List<User> getAllByOf(Integer office);
+
+    //根据类型和单位获得各种用户信息
+    @Select("SELECT * FROM wx_user WHERE user_office =#{office} AND user_type=#{type}")
+    List<User> getAllByOfAndType(@Param("office")Integer office,@Param("type")Integer type);
 
     //获得所有的维修单位
     @Select("SELECT * FROM wx_office WHERE of_type=#{type}")
