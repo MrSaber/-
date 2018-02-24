@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface FlowMapper {
-    @Insert("INSERT INTO `yswxpg`.`wx_flow` (`flow_id`, `flow_date`, `flow_status`) VALUES (#{flow_id}, #{flow_date}, 1)")
+    @Insert("INSERT INTO `yswxpg`.`wx_flow` (`flow_id`, `flow_date`, `flow_status`,`flow_userId`) VALUES (#{flow_id}, #{flow_date}, 1,#{flow_userId})")
     void add(Flow flow);
 
     @Select("SELECT * FROM wx_flow WHERE flow_id =#{id}")

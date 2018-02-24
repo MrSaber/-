@@ -34,7 +34,7 @@
         <div class="weui-cell__bd">
             <p>发布人信息</p>
         </div>
-        <div class="weui-cell__ft">点击查看</div>
+        <div class="weui-cell__ft" th:data="${flow.flow_userId}" onclick="to_page_userInfo(this)">点击查看</div>
     </a>
 </div>
 <div class="weui-cells__title">待维修故障</div>
@@ -91,6 +91,10 @@
                 //点击取消
             }
         });
+    }
+    function to_page_userInfo(div)
+    {
+        location.href="page_user_details.html?id="+div.getAttribute("data");
     }
 </script>
 </body>

@@ -38,4 +38,9 @@ public class PageAdminController {
     {
         return "page_admin_part_cafeteria_user";
     }
+    @RequestMapping("page_admin_part_userbind.html")
+    public String page_admin_part_userbind()
+    {
+        return "page_admin_part_userbind";
+    }
 }

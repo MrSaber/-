@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class Flow {
-    private String flow_id;
+    private String flow_id="";
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
     private Date flow_date;
@@ -15,6 +15,34 @@ public class Flow {
     private String flow_remark;
     private Integer flow_score;
 
+    private Integer flow_userId;
+    private Integer flow_ofId;
+    private Integer flow_builderId;
+
+
+    public Integer getFlow_userId() {
+        return flow_userId;
+    }
+
+    public void setFlow_userId(Integer flow_userId) {
+        this.flow_userId = flow_userId;
+    }
+
+    public Integer getFlow_ofId() {
+        return flow_ofId;
+    }
+
+    public void setFlow_ofId(Integer flow_ofId) {
+        this.flow_ofId = flow_ofId;
+    }
+
+    public Integer getFlow_builderId() {
+        return flow_builderId;
+    }
+
+    public void setFlow_builderId(Integer flow_builderId) {
+        this.flow_builderId = flow_builderId;
+    }
 
     public String getFlow_remark() {
         return flow_remark;

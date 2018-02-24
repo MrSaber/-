@@ -34,7 +34,13 @@
         <div class="weui-cell__bd">
             <p>发布人信息</p>
         </div>
-        <div class="weui-cell__ft">点击查看</div>
+        <div class="weui-cell__ft" th:data="${flow.flow_userId}" onclick="to_page_userInfo(this)">点击查看</div>
+        <script>
+            function to_page_userInfo(div)
+            {
+                location.href="page_user_details.html?id="+div.getAttribute("data");
+            }
+        </script>
     </a>
 </div>
 <div class="weui-cells__title">待维修故障</div>
@@ -51,7 +57,7 @@
 <a class="weui-cell weui-cell_access" href="javascript:;">
     <div class="weui-cell__hd"><img src="dist/image/mail.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
     <div class="weui-cell__bd">
-        <p th:text="${bid.user_office}"></p>
+        <p th:text="${bid.of_name}"></p>
     </div>
     <div class="weui-cell__ft" onclick="showBid(this)" th:data="${bid.bid_id}">查看</div>
 </a>
@@ -75,7 +81,8 @@
             url:"/web/flow/approval.do",
             data:{id:flowId},
             success:function (data) {
-                $.toast(data,function () {
+                $.toast(data.msg,function () {
+                    location.href = "/web/indexs.html"
                 });
             }
         })
@@ -84,7 +91,7 @@
     function disagree() {
         $.prompt({
             title: '撤回原因',
-            text: '清水您的撤回原因',
+            text: '请输入您的撤回原因',
             input: '输入框默认值',
             empty: false, // 是否允许为空
             onOK: function (input) {

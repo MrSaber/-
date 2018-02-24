@@ -23,9 +23,9 @@
     </div>
 </div>
 <div class="weui-cell">
-    <div class="weui-cell__hd"><label class="weui-label">单位</label></div>
+    <div class="weui-cell__hd"><label class="weui-label">食堂</label></div>
     <div class="weui-cell__bd">
-        <label class="weui-label" th:text="${session.cUser.user_office}">单位</label>
+        <label class="weui-label" th:text="${session.cUser.of_name}">单位</label>
     </div>
 </div>
 <div class="weui-cell">
@@ -34,7 +34,6 @@
         <label class="weui-label" th:text="${session.cUser.user_tel}">电话</label>
     </div>
 </div>
-
 <div class="weui-btn-area">
     <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" style="background-color: red" onclick="updateTel()">修改电话</a>
 </div>

@@ -334,7 +334,7 @@ public class PageController {
     {
         model.addAttribute("flowId",id);
         model.addAttribute("bidId",ToolHelper.getBID_ID());
-        return "page_bid_list";
+        return "page_bid_addStuff";
     }
 
     //历史记录
@@ -352,14 +352,15 @@ public class PageController {
         model.addAttribute("flows",flowMapper.getListByStatus(3));
         return "page_flowlist_bid_sg";
     }
-
-    @RequestMapping("page_bidlist_showBids.html")
-    public String page_bidlist_bids(Model model,String id)
+    //选择维修单位
+    @RequestMapping("page_bidlist_showBid.html")
+    public String page_bidlist_showBid(Model model,String id)
     {
+        System.out.println("执行此页面");
         model.addAttribute("tasks",taskMapper.get(id));
         model.addAttribute("flow",flowMapper.get(id));
         model.addAttribute("bids",bidMapper.getListByFlowId(id));
-        return "page_bidlist_showBids";
+        return "page_bidlist_showBid";
     }
 
     @RequestMapping("page_logincheck.html")
@@ -467,4 +468,11 @@ public class PageController {
         return "page_error";
     }
 
+    @RequestMapping("page_user_details.html")
+    public String page_user_details(Model model,Integer id)
+    {
+        User user=userMapper.getUserById(id);
+        model.addAttribute("user",user);
+        return "page_user_details";
+    }
 }

@@ -9,40 +9,56 @@
     <script type="text/javascript" src="dist/easyui/jquery.easyui.min.js"></script>
 </head>
 <body>
-    <table class="easyui-datagrid" title="食堂基本信息管理" style="width:100%;height:350px"
-           data-options="singleSelect:true,collapsible:true,method:'get'"  url="builder/gerAllOfCa.do" toolbar="#toolbar">
+    <table id="dg" class="easyui-datagrid" title="待审批的用户微信绑定信息" style="width:100%;height:350px"
+           data-options="singleSelect:true,collapsible:true,method:'get'"  url="user/getNoCheckUser.do" toolbar="#toolbar">
         <thead>
         <tr>
             <th data-options="field:'user_id',width:80,hidden:true">用户编号</th>
             <th data-options="field:'user_realname',width:80">真实姓名</th>
             <th data-options="field:'of_name',width:100">食堂名称</th>
-            <th data-options="field:'of_other',width:100">验证身份</th>
-            <th data-options="field:'of_other',width:100">联系方式</th>
-            <th data-options="field:'of_other',width:100">账户</th>
-            <th data-options="field:'of_other',width:100">密码</th>
-            <th data-options="field:'of_other',width:100">微信OPENID</th>
+            <th data-options="field:'user_type',width:100">验证身份</th>
+            <th data-options="field:'user_tel',width:100">联系方式</th>
+            <th data-options="field:'user_name',width:100">账户</th>
+            <th data-options="field:'user_password',width:100">密码</th>
+            <th data-options="field:'user_openId',width:150">微信OPENID</th>
+            <th data-options="field:'_operate',width:80,align:'center',formatter:formatOper">操作</th>
+            <script>
+                function formatOper(val,row,index){
+                    return '<a href="#"  onclick="allow('+row.user_id+')">同意</a><a href="#"  onclick="reject('+row.user_id+')">拒绝</a>';
+                }
+            </script>
         </tr>
         </thead>
     </table>
 
     <script>
-        function newUser(){
-            $('#dlg').dialog('open').dialog('center').dialog('setTitle','New User');
-            $('#fm').form('clear');
-        }
-        function save() {
-            $('#fm').form('submit', {
-                url: "builder/addCa.do",
-                onSubmit: function () {
-                    return $(this).form('validate');
-                },
-                success: function (result) {
-                    $.messager.alert("消息",result);
-                    $('#dlg').dialog('close');        // close the dialog
-                    $('#dg').datagrid('reload');    // reload the user data
-                }
-            })
-        }
+       function allow(id)
+       {
+           $.ajax({
+               url:"user/allowBind.do",
+               data:{id:id},
+               success:function(data)
+               {
+                   $.messager.alert("消息",data.msg);
+                   if(data.code = 1)
+                       $('#dg').datagrid("reload");
+               }
+           })
+       }
+
+       function reject(id)
+       {
+           $.ajax({
+               url:"user/rejectBind.do",
+               data:{id:id},
+               success:function(data)
+               {
+                   $.messager.alert("消息",data.msg);
+                   if(data.code = 1)
+                       $('#dg').datagrid("reload");
+               }
+           })
+       }
     </script>
 </body>
 </html>

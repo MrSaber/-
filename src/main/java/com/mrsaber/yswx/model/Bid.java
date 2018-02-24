@@ -9,6 +9,15 @@ public class Bid {
     private Integer bid_status;
     //附加属性，方便关联查找
     private String user_office;
+    private String of_name;
+
+    public String getOf_name() {
+        return of_name;
+    }
+
+    public void setOf_name(String of_name) {
+        this.of_name = of_name;
+    }
 
     public String getUser_office() {
         return user_office;

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"> </meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
+    <title>个人信息</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/mrsaber.css"/>
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+    <script src="dist/js/jquery.min.js"></script>
+    <script src="dist/js/jquery-weui.min.js"></script>
+    <script src="dist/js/weui.min.js"></script>
+</head>
+<body>
+<div class="weui-page-header" style="background-color: #007aff">
+    <h1 style="position: relative;top: 25%;">个人信息</h1>
+</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label" id="userId" th:text="${user.user_realname}">姓名</label>
+    </div>
+</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">食堂</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label" th:text="${user.of_name}">单位</label>
+    </div>
+</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">职位</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label">食堂工作人员</label>
+    </div>
+</div>
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">联系电话</label></div>
+    <div class="weui-cell__bd">
+        <label class="weui-label" th:text="${user.user_tel}">姓名</label>
+    </div>
+</div>
+
+</body>
+</html>

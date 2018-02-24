@@ -36,14 +36,6 @@
     </a>
 </div>
 <div class="weui-cells__title">已竞标单位</div>
-
-<!--    <a th:each="bid : ${bids}" class="weui-cell weui-cell_access">
-        <div class="weui-cell__hd"><img src="dist/image/task.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
-        <div class="weui-cell__bd">
-            <p th:text="${bid.user_office}"></p>
-        </div>
-        <div class="weui-cell__ft" th:data="${bid.bid_id}" onclick="showTask(this)">查看更多</div>
-    </a>-->
 <div class="weui-cells weui-cells_checkbox">
     <div th:each="bid : ${bids}">
         <label class="weui-cell weui-check__label" >
@@ -52,7 +44,7 @@
                 <i class="weui-icon-checked"></i>
             </div>
             <div class="weui-cell__bd">
-                <p th:text="${bid.user_office}">standard is dealt for u.</p>
+                <p th:text="${bid.of_name}">standard is dealt for u.</p>
             </div>
         </label>
         <div class="weui-cell__ft">

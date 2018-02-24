@@ -34,7 +34,13 @@
         <div class="weui-cell__bd">
             <p>发布人信息</p>
         </div>
-        <div class="weui-cell__ft">点击查看</div>
+        <div class="weui-cell__ft" th:data="${flow.flow_userId}" onclick="to_page_userInfo(this)">点击查看</div>
+        <script>
+            function to_page_userInfo(div)
+            {
+                location.href="page_user_details.html?id="+div.getAttribute("data");
+            }
+        </script>
     </a>
 </div>
 <div class="weui-cells__title">待维修故障</div>
@@ -58,7 +64,7 @@
 <script>
     //参与任务
     function bid() {
-        location.href="page_bid_list.html?id="+$('#flowId').attr('data');
+        location.href="page_bid_addStuff.html?id="+$('#flowId').attr('data');
     }
 </script>
 </body>

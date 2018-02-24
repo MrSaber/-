@@ -54,7 +54,7 @@ public class TaskController {
         String img_prefix= (String) session.getAttribute("TASK_ID");
         String img_suffix = String.valueOf(System.currentTimeMillis());
         img_suffix = img_suffix.substring(img_suffix.length()-6);
-        String img_path = "/home/mrsaber/tmp/"+img_prefix+img_suffix+".jpg";
+        String img_path = "E:\\tmp\\"+img_prefix+img_suffix+".jpg";
         try {
             imageMapper.add(img_path,img_prefix);
             image.getFile().transferTo(new File(img_path));

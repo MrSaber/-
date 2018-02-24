@@ -2,6 +2,7 @@ package com.mrsaber.yswx.controller;
 
 import com.mrsaber.yswx.mapper.FlowMapper;
 import com.mrsaber.yswx.model.Flow;
+import com.mrsaber.yswx.model.Message;
 import com.mrsaber.yswx.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +25,30 @@ public class FlowController {
     @Autowired
     private HttpSession session;
 
+    /**
+     * 设置任务进度
+     * @param flowId
+     * @param status
+     * @return
+     */
+    @RequestMapping(value = "/setProcess.do")
+    public Message setProcess(String flowId,Integer status)
+    {
+
+        Message re = new Message();
+        try {
+            flowMapper.selectFlowTo(flowId,status);
+        } catch (Exception e) {
+            e.printStackTrace();
+            re.setMsg(e.getMessage());
+            re.setCode(0);
+            return re;
+        }
+        re.setMsg("操作成功");
+        re.setCode(1);
+        return  re;
+    }
+
     @RequestMapping(value = "/add.do")
     public Integer add(HttpServletResponse response)
     {
@@ -32,6 +57,8 @@ public class FlowController {
          */
         Flow flow = new Flow();
         flow.setFlow_id((String) session.getAttribute("flowId"));
+        User user= (User) session.getAttribute("cUser");
+        flow.setFlow_userId(user.getUser_id());
         flow.setFlow_date(new Date());
         session.setAttribute("flow_id",flow.getFlow_id());
         try {
@@ -71,8 +98,9 @@ public class FlowController {
      * @return
      */
     @RequestMapping(value = "/approval.do")
-    public Boolean  approval(String id)
+    public Message  approval(String id)
     {
+        Message message = new Message();
         User user= (User) session.getAttribute("cUser");
         //假定用户已登录
         Integer type = user.getUser_type();
@@ -80,9 +108,13 @@ public class FlowController {
             flowMapper.approval(id,type);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            message.setCode(0);
+            message.setMsg(e.getMessage());
+            return message;
         }
-        return true;
+        message.setCode(1);
+        message.setMsg("操作成功");
+        return message;
     }
     /**
      * 不同意审批

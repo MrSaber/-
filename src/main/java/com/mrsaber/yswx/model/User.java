@@ -14,7 +14,16 @@ public class User {
     private String user_openId;
     private Integer user_status;
     private String user_tel;
+    //
+    private String of_name;
 
+    public String getOf_name() {
+        return of_name;
+    }
+
+    public void setOf_name(String of_name) {
+        this.of_name = of_name;
+    }
 
     public String getUser_tel() {
         return user_tel;

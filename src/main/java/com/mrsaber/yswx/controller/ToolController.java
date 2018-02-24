@@ -41,7 +41,7 @@ public class ToolController {
         String tmp_prefix="WX20180127000001";
         System.out.println(image.getName());
         try {
-            image.getFile().transferTo(new File("/home/mrsaber/tmp/"+tmp_prefix+".jpg"));
+            image.getFile().transferTo(new File("E:/tmp/"+tmp_prefix+".jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }

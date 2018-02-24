@@ -38,7 +38,7 @@
         <div class="weui-cell__bd">
             <p>发布人信息</p>
         </div>
-        <div class="weui-cell__ft">点击查看</div>
+        <div class="weui-cell__ft" th:data="${flow.flow_userId}" onclick="to_page_userInfo(this)">点击查看</div>
     </a>
     <a class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
@@ -102,6 +102,10 @@
     }
     function to_page_progress(div) {
         location.href="page_flow_progress.html?id="+div.getAttribute("data");
+    }
+    function to_page_userInfo(div)
+    {
+        location.href="page_user_details.html?id="+div.getAttribute("data");
     }
     function showBid(div) {
         location.href="page_bid_showStuff.html?id="+div.getAttribute("data");
