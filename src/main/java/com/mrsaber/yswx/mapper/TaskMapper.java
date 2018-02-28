@@ -12,6 +12,7 @@ import java.util.List;
 public interface TaskMapper {
     @Insert("INSERT INTO `yswxpg`.`wx_fault` (`fault_id`, `fault_flow_id`, `fault_info`, `fault_context`) VALUES (#{fault_id}, #{fault_flow_id}, #{fault_info}, #{fault_context});")
     void addForm(TaskForm form);
+
     @Select("SELECT * FROM wx_fault WHERE fault_flow_id=#{id}")
     List<TaskForm> get(String id);
 

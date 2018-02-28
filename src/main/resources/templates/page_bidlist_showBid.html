@@ -48,7 +48,7 @@
             </div>
         </label>
         <div class="weui-cell__ft">
-            <button style="border: none;background-color:#ABC327;color: white;padding: 5px;"  th:data="${bid.bid_id}" onclick="showBid(this)">查看报价</button>
+            <button style="border: none;background-color:#ABC327;color: white;padding: 5px;"  th:data="${bid.bid_id}" onclick="showBid(this)" th:text="'报价('+${bid.bid_total}+')'">查看报价</button>
         </div>
     </div>
 </div>

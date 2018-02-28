@@ -196,6 +196,60 @@ public class TaskControllerTest {
             e.printStackTrace();
         }
     }
+
+    static int[][] maps  =new int[9][9];//{{0,0,0,0},{0,1,1,1},{0,1,1,1},{0,1,1,1}};
+    @Test
+    public void testEightQueen()
+    {
+        settleQueen(0);
+        for(int i=0;i<8;i++)
+        {
+            for(int j=0;j<8;j++)
+            {
+                System.out.print(maps[i][j]);
+            }
+            System.out.println();
+        }
+
+
+    }
+
+    public static boolean settleQueen(int x)
+    {
+        //行数超过8，说明已经找到8皇后问题的解
+        if(x==8)
+            return true;
+        for(int i=0;i<8;i++)
+        {
+            for(int j=0;j<8;j++)
+                maps[i][j]=0; //清空当前行，已排除脏数据情况
+            if(check(x,i))
+            {
+                maps[x][i]=1;
+                if(settleQueen(x+1))
+                    return true; //如果下层返回true，说明底层已有解决方案，无需继续循环！
+            }
+        }
+        return false;
+    }
+
+
+    //XXX 判断某坐标左上侧，上侧，右上侧是否满足要求
+    public static boolean check(int x,int y)
+    {
+        int b = y-x;
+        int c =y+x;
+        for(int i=0;i<x;i++)
+        {
+            if(maps[i][y]==1)
+                return false;
+            if(i-b>=0&&maps[i-b][i]==1)
+                return false;
+            if(c-i>=0&&maps[c-i][i]==1)
+                return false;
+        }
+        return true;
+    }
 }
 
 

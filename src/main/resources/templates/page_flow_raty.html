@@ -38,8 +38,14 @@
         <div class="weui-cell__bd">
             <p>发布人信息</p>
         </div>
-        <div class="weui-cell__ft">点击查看</div>
+        <div class="weui-cell__ft" th:data="${flow.flow_userId}" onclick="to_page_userInfo(this)">点击查看</div>
     </a>
+    <script>
+        function to_page_userInfo(div)
+        {
+            location.href="page_user_details.html?id="+div.getAttribute("data");
+        }
+    </script>
     <a class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
             <p>任务进度</p>
@@ -63,7 +69,7 @@
 <a class="weui-cell weui-cell_access" href="javascript:;">
     <div class="weui-cell__hd"><img src="dist/image/mail.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
     <div class="weui-cell__bd">
-        <p th:text="${bid.user_office}"></p>
+        <p th:text="${bid.of_name}"></p>
     </div>
     <div class="weui-cell__ft" onclick="showBid(this)" th:data="${bid.bid_id}">查看</div>
 </a>

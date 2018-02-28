@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
-    <title>维修审批</title>
+    <title>WeUI 应用案例</title>
     <link rel="stylesheet" href="dist/lib/weui.min.css"/>
     <link rel="stylesheet" href="dist/css/mrsaber.css"/>
     <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
+
     <script src="dist/lib/jquery-2.1.4.js"></script>
     <script src="dist/js/jquery-weui.js"></script>
     <script src="dist/js/weui.min.js"></script>
 </head>
 <body>
 <div class="weui-page-header" style="background-color:#E9AE6A">
-    <h1 style="position: relative;top: 25%;">维修审批</h1>
+    <h1 style="position: relative;top: 25%;">提交验收</h1>
 </div>
 <div class="weui-cells__title">任务基本信息</div>
 <div class="weui-cells">
@@ -34,12 +35,6 @@
             <p>发布人信息</p>
         </div>
         <div class="weui-cell__ft" th:data="${flow.flow_userId}" onclick="to_page_userInfo(this)">点击查看</div>
-        <script>
-            function to_page_userInfo(div)
-            {
-                location.href="page_user_details.html?id="+div.getAttribute("data");
-            }
-        </script>
     </a>
 </div>
 <div class="weui-cells__title">待维修故障</div>
@@ -52,62 +47,31 @@
         <div class="weui-cell__ft" th:data="${task.fault_id}" onclick="showTask(this)">查看更多</div>
     </a>
 </div>
-<div class="weui-cells__title">选定维修单位</div>
-<a class="weui-cell weui-cell_access" href="javascript:;">
-    <div class="weui-cell__hd"><img src="dist/image/mail.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
-    <div class="weui-cell__bd">
-        <p th:text="${bid.of_name}"></p>
-    </div>
-    <div class="weui-cell__ft" onclick="showBid(this)" th:data="${bid.bid_id}" th:text="'报价('+${bid.bid_total}+')'">查看</div>
-</a>
 <script>
     function showTask(div) {
         location.href="page_task_details.html?id="+div.getAttribute("data");
     }
-    function showBid(div) {
-        location.href="page_bid_showStuff.html?id="+div.getAttribute("data");
-    }
 </script>
 <div class="weui-page-footer">
-    <button style="width: 50%;float: left;height: 50px;background-color: coral;color: white;border-radius: 5px;border: none" onclick="disagree()">撤回</button>
-    <button style="width: 50%;float: right;height: 50px;background-color: #3cc51f;color: white;border-radius: 5px;border: none" onclick="agree()">同意</button>
+    <button style="width: 50%;float: right;height: 50px;background-color: #3cc51f;color: white;border-radius: 5px;border: none" onclick="agree()">提交验收</button>
 </div>
 <script>
     //同意任务
     function agree() {
         var flowId = $('#flowId').attr("data");
         $.ajax({
-            url:"/web/flow/approval.do",
+            url:"/web/flow/wxdwSubmit.do",
             data:{id:flowId},
             success:function (data) {
                 $.toast(data.msg,function () {
-                    location.href = "/web/indexs.html"
+                    location.href = "/web/indexs.html";
                 });
             }
         })
     }
-    //撤销任务
-    function disagree() {
-        $.prompt({
-            title: '撤回原因',
-            text: '请输入您的撤回原因',
-            input: '输入框默认值',
-            empty: false, // 是否允许为空
-            onOK: function (input) {
-                //点击确认
-                var flowId = $('#flowId').attr("data");
-                    $.ajax({
-                    url:"/web/flow/noApproval.do",
-                    data:{id:flowId,why:input},
-                        success:function (data) {
-                            $.alert(data);
-                        }
-                })
-            },
-            onCancel: function () {
-                //点击取消
-            }
-        });
+    function to_page_userInfo(div)
+    {
+        location.href="page_user_details.html?id="+div.getAttribute("data");
     }
 </script>
 </body>

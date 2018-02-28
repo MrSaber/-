@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
-    <title>WeUI 应用案例</title>
+    <title>维修单位微信身份绑定</title>
     <link rel="stylesheet" href="dist/lib/weui.min.css"/>
     <link rel="stylesheet" href="dist/css/mrsaber.css"/>
     <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="weui-page-header" style="background-color:#1aad19">
-    <h1 style="position: relative;top: 25%;">微信绑定</h1>
+    <h1 style="position: relative;top: 25%;">微信绑定[维修单位]</h1>
 </div>
 <div class="weui-cells__title">身份绑定</div>
 <div class="weui-panel__bd">
@@ -30,27 +30,12 @@
 
 <div class="weui-cell weui-cell_select weui-cell_select-after">
     <div class="weui-cell__hd">
-        <label for="userOffice" class="weui-label">食堂单位</label>
+        <label for="userOffice" class="weui-label">已报备单位</label>
     </div>
-    <!--自动渲染食堂信息-->
+    <!--自动渲染单位信息-->
     <div class="weui-cell__bd">
         <select class="weui-select" name="select2" id="userOffice">
-            <option  th:each="cafeteria :${cafeterias}" th:value="${cafeteria.of_id}" th:text="${cafeteria.of_name}"></option>
-        </select>
-    </div>
-</div>
-
-<div class="weui-cell weui-cell_select weui-cell_select-after">
-    <div class="weui-cell__hd">
-        <label class="weui-label">职位</label>
-    </div>
-    <div class="weui-cell__bd">
-        <select class="weui-select" name="select2" id="userType">
-            <option value="1">食堂工作人员</option>
-            <option value="3">食堂管理员</option>
-            <option value="5">分管领导</option>
-            <option value="7">主任</option>
-            <option value="9">处长</option>
+            <option  th:each="builder :${builders}" th:value="${builder.of_id}" th:text="${builder.of_name}"></option>
         </select>
     </div>
 </div>

@@ -29,4 +29,7 @@ public interface BidMapper {
     @Select("SELECT wx_bid.*,wx_user.user_office,wx_office.of_name FROM wx_office, wx_bid,wx_user WHERE bid_user_id = wx_user.user_id  AND of_id = user_office AND bid_flow_id = #{id} AND bid_status = 1")
     Bid getSelectBidByFlowId(String id);
 
+    @Select("SELECT wx_bid.bid_timeprice+SUM(wx_stuff.stuff_price) AS bid_total FROM `wx_bid`,`wx_stuff` WHERE wx_stuff.stuff_bid_id = wx_bid.bid_id AND wx_bid.bid_id=#{id};")
+    Double getBidTotal(String id);
+
 }

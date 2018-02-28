@@ -8,7 +8,7 @@ public class User {
     private String user_name;
     private String user_password;
     private Integer user_type;
-    private String user_office;
+    private Integer user_office;
     private String user_realname;
     //
     private String user_openId;
@@ -81,11 +81,11 @@ public class User {
         this.user_type = user_type;
     }
 
-    public String getUser_office() {
+    public Integer getUser_office() {
         return user_office;
     }
 
-    public void setUser_office(String user_office) {
+    public void setUser_office(Integer user_office) {
         this.user_office = user_office;
     }
 

@@ -7,12 +7,49 @@ import java.util.List;
 
 @Mapper
 public interface FlowMapper {
-    @Insert("INSERT INTO `yswxpg`.`wx_flow` (`flow_id`, `flow_date`, `flow_status`,`flow_userId`) VALUES (#{flow_id}, #{flow_date}, 1,#{flow_userId})")
-    void add(Flow flow);
 
+    /**
+     * 获得维修单位的任务列表
+     * @param id
+     * @return
+     */
+    @Select("SELECT * FROM wx_flow WHERE flow_builderId =#{id} AND flow_status<>14 AND flow_status<>15")
+    List<Flow> getCurListByWXDWId(Integer id );
+    /**
+     * 添加流程单
+     * @param flow
+     */
+    @Insert("INSERT INTO `yswxpg`.`wx_flow` (`flow_id`, `flow_date`, `flow_status`,`flow_userId`,`flow_ofId`) VALUES (#{flow_id}, #{flow_date}, 1,#{flow_userId}),#{flow_ofId}")
+    void add(Flow flow);
+    /**
+     * 获得各自食堂各状态的维修任务
+     * @param type XXX 类型
+     * @param office XXX 食堂编号
+     * @return
+     */
+    @Select("SELECT * FROM wx_flow WHERE flow_status =#{type} and flow_ofId = #{office}")
+    List<Flow> getListByStatusAndOf(@Param("type") Integer type,@Param("office") Integer office);
+
+    /**
+     * 获得各自食堂各状态的维修任务
+     * @param office XXX 食堂编号
+     * @return
+     */
+    @Select("SELECT * FROM wx_flow WHERE flow_ofId = #{office}")
+    List<Flow> getListByOfId(@Param("office") Integer office);
+
+    /**
+     * 获得具体的FLOW信息
+     * @param id
+     * @return
+     */
     @Select("SELECT * FROM wx_flow WHERE flow_id =#{id}")
     Flow get(String id);
 
+    /**
+     * 领导和管理员信息
+     * @return
+     */
     @Select("SELECT * FROM wx_flow ")
     List<Flow> getAll();
 

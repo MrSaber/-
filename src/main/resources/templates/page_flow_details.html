@@ -63,9 +63,9 @@
 <a class="weui-cell weui-cell_access" href="javascript:;">
     <div class="weui-cell__hd"><img src="dist/image/mail.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
     <div class="weui-cell__bd">
-        <p th:text="${bid.user_office}"></p>
+        <p th:text="${bid.of_name}"></p>
     </div>
-    <div class="weui-cell__ft" onclick="showBid(this)" th:data="${bid.bid_id}">查看</div>
+    <div class="weui-cell__ft" onclick="showBid(this)" th:data="${bid.bid_id}" th:text="'报价('+${bid.bid_total}+')'">查看</div>
 </a>
 
 <div class="weui-cells__title">任务评价</div>
@@ -93,7 +93,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script>

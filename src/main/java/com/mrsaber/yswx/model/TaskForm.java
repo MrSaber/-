@@ -5,6 +5,23 @@ public class TaskForm {
     private String fault_flow_id;
     private String fault_info;
     private String fault_context;
+    private String fault_image;
+
+    public String getFault_flow_id() {
+        return fault_flow_id;
+    }
+
+    public void setFault_flow_id(String fault_flow_id) {
+        this.fault_flow_id = fault_flow_id;
+    }
+
+    public String getFault_image() {
+        return fault_image;
+    }
+
+    public void setFault_image(String fault_image) {
+        this.fault_image = fault_image;
+    }
 
     public String getFault_id() {
         return fault_id;

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>报表信息</title>
+</head>
+<style>
+    td{
+        border: 1px solid;
+    }
+    .title{
+        width: 100px;
+        font-weight: bold;
+    }
+</style>
+<body>
+    <div id="header" style="text-align: center">
+        <h1>石大饮食维修评估平台审批单</h1>
+    </div>
+    <div id="content" style="margin: 0 50px;">
+        <table style="border: 1px solid;width: 100%;" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="title">维修单号:</td>
+                <td  th:text="${flow.flow_id}"></td>
+                <td class="title">发起方:</td>
+                <td th:text="${user.of_name}+'('+${user.user_realname}+')'"></td>
+                <td class="title">发起时间:</td>
+                <td th:text="${flow.flow_date}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="margin: 15px 0">
+            <table style="border: 1px solid;width: 100%;" cellspacing="0" th:each="task :${tasks}">
+             <tr>
+                 <td class="title">故障说明:</td>
+                 <td th:text="${task.getFault_info()}"></td>
+                 <td class="title">故障详情:</td>
+                 <td colspan="3" th:text="${task.getFault_context()}"></td>
+             </tr>
+                <tr>
+                    <td class="title">故障图片:</td>
+                    <td colspan="5" style="text-align: center">
+                        <img th:src="${task.fault_image}" width="300px"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin: 15px 0">
+            <table style="border: 1px solid;width: 100%;" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td class="title">维修方：</td>
+                    <td th:text="${builder.of_name}"> </td>
+                    <td class="title">工时费：</td>
+                    <td  th:text="${bid.bid_timeprice}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <table style="border: 1px solid;width: 100%;" cellspacing="0">
+            <tbody>
+            <tr th:each="stuff : ${stuffs}">
+                <td class="title">材料名称：</td>
+                <td th:text="${stuff.getStuff_name()}"></td>
+                <td class="title">材料数量：</td>
+                <td th:text="${stuff.getStuff_number()}"></td>
+                <td class="title">材料价格：</td>
+                <td th:text="${stuff.getStuff_price()}"></td>
+            </tr>
+            <tr>
+                <td colspan="4"></td>
+                <td class="title">合计金额：</td>
+                <td th:text="${bid.bid_total}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <table  style="margin-top: 50px;border: 1px solid;width: 100%;height: 150px" cellspacing="0">
+            <tr>
+                <td class="title">领导意见
+                </td>
+                <td colspan="7"></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

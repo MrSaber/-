@@ -48,11 +48,10 @@
         $.ajax({
             url:"/web/flow/add.do",
             success:function (data) {
-                if(data==1)
+                $.toast(data.msg);
+                if(data.code==1)
                 {
-                    $.toast("已提交至管理员审核！", function() {
-                        location.href = "/web/indexs.html";
-                    });
+                    location.href = "/web/indexs.html"
                 }
             }
         })

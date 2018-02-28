@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"> </meta>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0"></meta>
-    <title>历史任务</title>
+    <title>WeUI 应用案例</title>
     <link rel="stylesheet" href="dist/lib/weui.min.css"/>
     <link rel="stylesheet" href="dist/css/mrsaber.css"/>
     <link rel="stylesheet" href="dist/css/jquery-weui.min.css"/>
@@ -13,21 +13,21 @@
     <script src="dist/js/weui.min.js"></script>
 </head>
 <body>
-<div class="weui-page-header" style="background-color: #007aff">
-    <h1 style="position: relative;top: 25%;">历史任务</h1>
+<div class="weui-page-header" style="background-color: #BA874C">
+    <h1 style="position: relative;top: 25%;">待验收任务列表</h1>
 </div>
 <div class="weui-cells">
     <a class="weui-cell weui-cell_access" th:each="flow :${flows}">
         <div class="weui-cell__hd"><img src="dist/image/task.png" alt="" style="width:20px;margin-right:5px;display:block"/></div>
         <div class="weui-cell__bd">
-            <p th:text="${flow.flow_status==15 or flow.flow_status==14}?'【结束】':'【进行中】'+${flow.flow_id}"></p>
+            <p th:text="${flow.flow_id}"></p>
         </div>
         <div onclick="showTask(this)" th:data="${flow.flow_id}" class="weui-cell__ft">查看更多</div>
     </a>
 </div>
 <script>
     function showTask(div) {
-        location.href="page_flow_details.html?id="+div.getAttribute("data");
+        location.href="page_flow_approval_wxdw.html?id="+div.getAttribute("data");
     }
 </script>
 </body>

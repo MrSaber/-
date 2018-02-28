@@ -1,9 +1,8 @@
 package com.mrsaber.yswx.controller;
 
+import com.mrsaber.yswx.mapper.BidMapper;
 import com.mrsaber.yswx.mapper.FlowMapper;
-import com.mrsaber.yswx.model.Flow;
-import com.mrsaber.yswx.model.Message;
-import com.mrsaber.yswx.model.User;
+import com.mrsaber.yswx.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +21,8 @@ import java.util.List;
 public class FlowController {
     @Autowired
     private FlowMapper flowMapper;
+    @Autowired
+    private BidMapper bidMapper;
     @Autowired
     private HttpSession session;
 
@@ -49,26 +50,60 @@ public class FlowController {
         return  re;
     }
 
+    /**
+     * 食堂工作人员发起维修任务
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/add.do")
-    public Integer add(HttpServletResponse response)
+    public Message add(HttpServletResponse response)
     {
-        /**
-         * 生成任务ID
-         */
+        Message message = new Message();
+
         Flow flow = new Flow();
         flow.setFlow_id((String) session.getAttribute("flowId"));
         User user= (User) session.getAttribute("cUser");
+        // XXX:设置Flow的相关信息！
         flow.setFlow_userId(user.getUser_id());
         flow.setFlow_date(new Date());
+        flow.setFlow_ofId(user.getUser_office());
+
         session.setAttribute("flow_id",flow.getFlow_id());
         try {
             flowMapper.add(flow);
             session.setAttribute("flowId",null);//生成Flow以后清除Session值
         } catch (Exception e) {
             e.printStackTrace();
-            return -1;
+            message.setCode(0);
+            message.setMsg(e.getMessage());
+            return message;
         }
-        return 1;
+        message.setCode(1);
+        message.setMsg("发布成功,等待管理员审核！");
+        return message;
+    }
+    /**
+     * 维修单位发起验收
+     * @param id
+
+     * @return
+     */
+    @RequestMapping(value = "/wxdwSubmit.do")
+    public Message wxdwSubmit(String id)
+    {
+        Message message = new Message();
+        //假定用户已登录
+        try {
+            flowMapper.approval(id,13);
+        } catch (Exception e) {
+            e.printStackTrace();
+            message.setCode(0);
+            message.setMsg(e.getMessage());
+            return message;
+        }
+        message.setCode(1);
+        message.setMsg("发起成功！");
+        return message;
     }
 
     /**
@@ -104,6 +139,22 @@ public class FlowController {
         User user= (User) session.getAttribute("cUser");
         //假定用户已登录
         Integer type = user.getUser_type();
+        //处理报价2万元以上的项目
+        System.out.println("type为"+type);
+        if(type==UserType.USER_ZR)
+        {
+            System.out.println("开始进行比较！");
+            Double bidPrice = bidMapper.getBidTotal(bidMapper.getSelectBidByFlowId(id).getBid_id());;
+            System.out.println(bidPrice);
+            if(bidPrice >=20000.0)
+            {
+                //状态16 为等待处长进行决策！
+                flowMapper.approval(id, ProgressType.PROGRESS_WaitForCZ);
+                message.setCode(3);
+                message.setMsg("由于报价高于标定值，需要等待处长进行决定！");
+                return message;
+            }
+        }
         try {
             flowMapper.approval(id,type);
         } catch (Exception e) {
@@ -125,8 +176,9 @@ public class FlowController {
     @RequestMapping(value = "/noApproval.do")
     public Boolean  noApproval(String id,String why)
     {
-        //假定用户已登录
-        Integer type = 3;
+        Message message = new Message();
+        User user= (User) session.getAttribute("cUser");
+        Integer type = user.getUser_type();
         Integer value = type+1;
         try {
             flowMapper.noApproval(id,value,why);
@@ -136,7 +188,6 @@ public class FlowController {
         }
         return true;
     }
-
     /**
      * 获得维修单位的所有维修任务
      */
